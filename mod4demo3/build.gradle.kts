@@ -42,6 +42,10 @@ android {
 }
 
 dependencies {
+
+    //accès à la méthode viewModel()
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.2")
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
