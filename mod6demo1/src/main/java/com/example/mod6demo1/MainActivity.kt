@@ -29,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.mod6demo1.ui.theme.CoursAndroidHCDA2410Theme
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -57,6 +58,11 @@ fun ColorSettingsScreen(modifier: Modifier = Modifier) {
             bgColor = it
         }
     }
+//    coroutine.launch(Dispatchers.IO) {
+//        DataStoreManager.getColor(context = context).collect {
+//            bgColor = it
+//        }
+//    }
 
 
     Scaffold(
@@ -70,7 +76,7 @@ fun ColorSettingsScreen(modifier: Modifier = Modifier) {
                         .fillMaxWidth()
                         .height(40.dp)
                         .border(1.dp, Color.Black)
-                        .clickable{
+                        .clickable {
                             coroutine.launch(Dispatchers.IO) {
                                 DataStoreManager.setColor(context = context, color = it)
                             }
