@@ -6,11 +6,16 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mod6demo2.ui.theme.CoursAndroidHCDA2410Theme
 
 class MainActivity : ComponentActivity() {
@@ -20,10 +25,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             CoursAndroidHCDA2410Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    MovieList()
                 }
             }
         }
@@ -31,17 +33,16 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun MovieList(
+    movieViewModel: MovieViewModel = viewModel(factory = MovieViewModel.Factory),
+    modifier: Modifier = Modifier) {
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    CoursAndroidHCDA2410Theme {
-        Greeting("Android")
+    val movies by movieViewModel.movies.collectAsState()
+
+    LazyColumn() {
+        items(movies){
+            Text(it.toString())
+        }
     }
+
 }
